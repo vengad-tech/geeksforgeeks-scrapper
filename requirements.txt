@@ -1,0 +1,3 @@
+pip install lxml
+pip install cssselect
+pip install jinja2
