@@ -19,7 +19,11 @@ def make_dir(directory):
         os.makedirs(directory)
     else:
         shutil.rmtree(directory)
-        os.makedirs(directory)
+        try:
+            os.makedirs(directory)
+        except:
+            print "Directory  creation problem , please re-run the script"
+            exit()
 
 
 def writemenu(urls,filename):
@@ -60,17 +64,20 @@ def getcontent(url):
     
     data = doc.cssselect('html body div#wrapper div#content div#post.post')[0]
     #removing facebooking and other bookmarking links
-    child = data.cssselect('div#post-content.post-content span.martiniboy_social_list')[0];
-    child.drop_tree()
-    #removing facebooking comments
-    child = data.cssselect('div#post-content.post-content div.yarpp-related')[0]
-    child.drop_tree()
-    #removing related items
-    child = data.cssselect('div h3')[0];
-    child.drop_tree()
-    #removing posting comments box
-    child = data.cssselect('div.comments-main div#commentsdiv.comments div#respond.form')[0];
-    child.drop_tree()
+    try:
+        child = data.cssselect('div#post-content.post-content span.martiniboy_social_list')[0];
+        child.drop_tree()
+        #removing facebooking comments
+        child = data.cssselect('div#post-content.post-content div.yarpp-related')[0]
+        child.drop_tree()
+        #removing related items
+        
+        child = data.cssselect('html body div#wrapper div#content div#post.post div.comments-main')[0];
+        child.drop_tree()
+    except:
+        pass
+    
+    
 
     
     return tostring(data)
@@ -83,6 +90,8 @@ urls = [
 {"url":"http://www.geeksforgeeks.org/category/multiple-choice-question/page/",'dir':'mcq','pages':4,'name':'MCQ'},
 {"url":"http://www.geeksforgeeks.org/category/linked-list/page/",'dir':'linkedlist','pages':3,'name':'Linked List'},
 {"url":"http://www.geeksforgeeks.org/category/c-puzzles/page/",'dir':'puzzles','pages':5,'name':'C/C++ puzzles'},
+{"url":"http://www.geeksforgeeks.org/category/tree/page/",'dir':'trees','pages':3,'name':'Trees'},
+{"url":"http://www.geeksforgeeks.org/category/c-arrays/page/",'dir':'arrays','pages':5,'name':'Arrays'},
 
 ]
 writemenu(urls,"index.html")
