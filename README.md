@@ -4,7 +4,6 @@ geeksforgeeks-scrapper
 geeksforgeeks scrapper
 
 This ia python scripts that downloads geeksforgeeks.org website content and create a mobile offline website.
-
 To Do:
 First install all dependencies in requirements.txt, then open scrapper.py and configure then run it.
 
